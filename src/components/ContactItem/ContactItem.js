@@ -16,12 +16,6 @@ const ContactItem = (props) => {
   );
 }
 
-// const propsAreEqual = (previousProps, currentProps) => {
-//   return previousProps.contact === currentProps.contact;
-// }
-
-// const contactItemMemo = React.memo(contactItem, propsAreEqual);
-
 const ContactItemMemo = React.memo(ContactItem);
 
 export default ContactItemMemo;

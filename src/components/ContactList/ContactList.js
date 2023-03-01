@@ -85,7 +85,7 @@ React.useEffect(() => {
        <label>Buscar: </label>
           <input type="text" value={filter} onChange={(event) => setFilter(event.target.value)}></input>
 
-      {/* formulario para añadir gastos */}
+      {/* formulario para añadir contactos */}
       <h2>Añadir nuevo contacto</h2>
       <form onSubmit={(event) => addnewContact(event)}>
         <p>
