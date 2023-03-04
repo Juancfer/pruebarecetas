@@ -1,0 +1,29 @@
+.book-list{
+    display: flex;
+}
+
+.book-list__title{
+    color: black;
+}
+
+.book-list__text{
+    color: black;
+}
+.book-list__form{
+    margin: 0 20px;
+    width: 33%;
+}
+
+input{
+    width: 550px;
+}
+
+.book-list__cards{
+    margin: 0 20px;
+    width: 33%;
+}
+
+.book-list__selected{
+    margin: 0 20px;
+    width: 33%;
+}
