@@ -19,8 +19,8 @@
           "quantity": "8 uds"
         },
         {
-          "name": "Arroz",
-          "quantity": "400 grs"
+          "name": "arroz",
+          "quantity": "200"
         }
       ]
     },
@@ -45,6 +45,10 @@
         {
           "name": "Mantequilla",
           "quantity": "50 grs"
+        },
+        {
+          "name": "harina",
+          "quantity": "350"
         }
       ]
     },

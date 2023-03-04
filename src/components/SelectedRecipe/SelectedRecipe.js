@@ -4,25 +4,32 @@ import "./SelectedRecipe.css";
 
 const SelectedRecipe = (props) => {
     console.log("Ejecutado render RecipesCard: " + props.selectedRecipe.name);
+    const nameRef = React.useRef(null)
+    const quantityRef = React.useRef(null)
 
-    const [newIngredients, setNewIngredients] = React.useState({ name: "", quantity: "" });
-    const [ingredients, setIngredients] = React.useState()
-    
-    React.useEffect(() => {
-    setIngredients(props.selectedRecipe.ingredients)
-    },[props.selectedRecipe])
-    
     const deleteIngredient = value => {
-        setIngredients(oldValues => {
-          return oldValues.filter(ingredient => ingredient.name !== value.name)
-        })
-        props.onClickRemoveIngredients(value)
+        const newRecipe = {
+            ...props.selectedRecipe,
+            ingredients: [...props.selectedRecipe.ingredients]
+        }
+       newRecipe.ingredients = newRecipe.ingredients.filter(ingredient => ingredient.name !== value.name)
+        props.onClickRemoveIngredients(newRecipe)
     }
 
     const addIngredients = () => {
-        const newIngredient = [...ingredients, newIngredients]
+        const newIngredient = {
+            name: nameRef.current.value,
+            quantity: quantityRef.current.value
+        }
+        const newRecipe = {
+            ...props.selectedRecipe,
+            ingredients: [...props.selectedRecipe.ingredients]
+        }
+        newRecipe.ingredients.push(newIngredient)
+        props.onClickAddIngredients(newRecipe)
 
-        setIngredients(newIngredient)  
+        nameRef.current.value = ""
+        quantityRef.current.value = ""
     }
     
     return (
@@ -33,14 +40,14 @@ const SelectedRecipe = (props) => {
                 <p className="selectedRecipe-item__phone">Numero de personas: {props.selectedRecipe.numPeople}</p>
             </div>
             <div>
-                {ingredients && <table className="selectedRecipe-item__table">
+                {props.selectedRecipe.ingredients && <table className="selectedRecipe-item__table">
                     <tbody>
                         <tr>
                             <th>Ingredientes</th>
                             <th>Cantidad</th>
                             <th>Acciones</th>
                         </tr>
-                        {ingredients.map(ingredient => 
+                        {props.selectedRecipe.ingredients.map(ingredient => 
                             <IngredientDetail 
                                 key={ingredient.name} 
                                 ingredients={ingredient}
@@ -49,24 +56,13 @@ const SelectedRecipe = (props) => {
                         )}
                         <tr>
                             <td>
-                                <input className="selectedRecipe-item__input" type="text" name="name" id="name" value={newIngredients.name} onChange={(event) => setNewIngredients({
-                                    ...newIngredients,
-                                    name: event.target.value,
-                                })} />
+                                <input ref={nameRef} className="selectedRecipe-item__input" type="text" name="name" id="name" />
                             </td>
                             <td>
-                                <input className="selectedRecipe-item__input" type="number" name="quantity" id="quantity" value={newIngredients.quantity} onChange={(event) => setNewIngredients({
-                                    ...newIngredients,
-                                    quantity: event.target.value,
-                                })} />
+                                <input ref={quantityRef} className="selectedRecipe-item__input" type="text" name="quantity" id="quantity" />
                             </td>
                             <td>
                                 <button onClick={() => {
-                                    props.onClickAddIngredients(newIngredients)
-                                        setNewIngredients({
-                                        name: "",
-                                        quantity: ""
-                                    })
                                     addIngredients()
                                 }} type="button">Añadir</button>
                             </td>

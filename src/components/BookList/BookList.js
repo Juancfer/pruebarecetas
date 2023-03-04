@@ -50,12 +50,8 @@ const bookList = React.memo(() => {
   },[bookList]
   )
 
-  const addIngredients = (ingredient) => {
-    const newRecipe = {
-      ...fullRecipe,
-      ingredients: [...fullRecipe.ingredients, ingredient]
-    }
-
+  const addIngredients = (newRecipe) => {
+    console.log(newRecipe)
     const requestOptions = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -63,15 +59,13 @@ const bookList = React.memo(() => {
     };
     fetch(`${API_URL}/${fullRecipe.id}`, requestOptions)
       .then(response => response.json())
-      .then(data => console.log(data));
+      .then(data => {
+        console.log(data)
+        setFullRecipe(data)
+      });
   }
 
-  const removeIngredients = (ingredients) => {
-    const newRecipe = {
-      ...fullRecipe,
-      ingredients: fullRecipe.ingredients.filter(ingredient => ingredient.name !== ingredients.name)
-    }
-
+  const removeIngredients = (newRecipe) => {
     const requestOptions = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -79,7 +73,10 @@ const bookList = React.memo(() => {
     };
 
     fetch(`${API_URL}/${fullRecipe.id}`, requestOptions).then(response => response.json())
-      .then(data => console.log(data));
+      .then(data => {
+        console.log(data)
+        setFullRecipe(data)
+      });
   }
 
   return (
