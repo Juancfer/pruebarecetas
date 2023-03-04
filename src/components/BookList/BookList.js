@@ -1,7 +1,7 @@
 import React from "react";
 import "./BookList.css";
 import RecipesCardMemo from "../RecipesCard/RecipesCard";
-import SelectedRecipe from "../SelectedRecipe/SelectedRecipe";
+import SelectedRecipeMemo from "../SelectedRecipe/SelectedRecipe";
 
 const bookList = React.memo(() => {
 
@@ -42,11 +42,13 @@ const bookList = React.memo(() => {
       });
   }
 
-  const clickedRecipe = (id) => {
+  const clickedRecipe = React.useCallback(
+    (id) => {
     const fullRecipe = bookList.filter(element => element.id === id)
       .reduce((obj, item) => Object.assign(obj, item), {});
     setFullRecipe(fullRecipe);
-  }
+  },[bookList]
+  )
 
   const addIngredients = (ingredient) => {
     const newRecipe = {
@@ -121,13 +123,13 @@ const bookList = React.memo(() => {
           <RecipesCardMemo
             key={recipeCard.id}
             recipeCard={recipeCard}
-            onClick={(id) => clickedRecipe(id)}
+            onClick={clickedRecipe}
           ></RecipesCardMemo>)}
       </div>
       <div className="book-list__selected">
         <h2 className="book-list__title">Receta seleccionada:</h2>
         {Object.keys(fullRecipe).length > 0 &&
-          <SelectedRecipe
+          <SelectedRecipeMemo
             selectedRecipe={fullRecipe}
             onClickAddIngredients={ingredients => addIngredients(ingredients)}
             onClickRemoveIngredients={ingredients => removeIngredients(ingredients)}

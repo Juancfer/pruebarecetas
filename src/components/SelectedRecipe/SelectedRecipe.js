@@ -9,7 +9,7 @@ const SelectedRecipe = (props) => {
     const [ingredients, setIngredients] = React.useState()
     
     React.useEffect(() => {
-        setIngredients(props.selectedRecipe.ingredients)
+    setIngredients(props.selectedRecipe.ingredients)
     },[props.selectedRecipe])
     
     const deleteIngredient = value => {
@@ -23,8 +23,6 @@ const SelectedRecipe = (props) => {
         const newIngredient = [...ingredients, newIngredients]
 
         setIngredients(newIngredient)  
-
-       
     }
     
     return (
@@ -80,4 +78,5 @@ const SelectedRecipe = (props) => {
     );
 }
 
-export default SelectedRecipe;
+const SelectedRecipeMemo = React.memo(SelectedRecipe);
+export default SelectedRecipeMemo;
